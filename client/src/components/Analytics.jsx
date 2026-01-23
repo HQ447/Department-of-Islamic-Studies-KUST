@@ -76,6 +76,8 @@ const stats = [
 
 const Analytics = () => {
     const [isVisible, setIsVisible] = useState(false);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [isAutoPlaying, setIsAutoPlaying] = useState(true);
     const [counters, setCounters] = useState({
         students: 0,
         programs: 0,
@@ -84,6 +86,31 @@ const Analytics = () => {
         events: 0
     });
     const sectionRef = useRef(null);
+    const intervalRef = useRef(null);
+    const timeoutRef = useRef(null);
+
+    // Calculate how many items to show per slide based on screen size
+    const getItemsPerSlide = () => {
+        if (typeof window !== 'undefined') {
+            if (window.innerWidth >= 1280) return 3; // xl: 3 items
+            if (window.innerWidth >= 1024) return 3; // lg: 3 items
+            if (window.innerWidth >= 640) return 2; // sm: 2 items
+            return 1; // mobile: 1 item
+        }
+        return 3; // default
+    };
+
+    const [itemsPerSlide, setItemsPerSlide] = useState(getItemsPerSlide());
+    const totalSlides = Math.ceil(stats.length / itemsPerSlide);
+
+    // Update items per slide on resize
+    useEffect(() => {
+        const handleResize = () => {
+            setItemsPerSlide(getItemsPerSlide());
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     // Animate counter
     const animateCounter = (id, target) => {
@@ -102,6 +129,21 @@ const Analytics = () => {
         }, duration / steps);
     };
 
+    // Auto-rotate carousel timer (4 seconds)
+    useEffect(() => {
+        if (isAutoPlaying && isVisible) {
+            intervalRef.current = setInterval(() => {
+                setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
+            }, 4000);
+        }
+
+        return () => {
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+            }
+        };
+    }, [isAutoPlaying, isVisible, totalSlides]);
+
     // Intersection Observer for scroll animation
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -109,7 +151,7 @@ const Analytics = () => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting && !isVisible) {
                         setIsVisible(true);
-                        // Start animations
+                        // Start animations for all stats
                         stats.forEach((stat) => {
                             animateCounter(stat.id, stat.target);
                         });
@@ -130,6 +172,67 @@ const Analytics = () => {
             }
         };
     }, [isVisible]);
+
+    // Pause auto-play on hover
+    const handleMouseEnter = () => {
+        setIsAutoPlaying(false);
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+        }
+    };
+
+    const handleMouseLeave = () => {
+        setIsAutoPlaying(true);
+    };
+
+    // Manual navigation
+    const goToSlide = (index) => {
+        setCurrentIndex(index);
+        setIsAutoPlaying(false);
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+        timeoutRef.current = setTimeout(() => {
+            setIsAutoPlaying(true);
+        }, 3000);
+    };
+
+    const goToPrevious = () => {
+        setCurrentIndex((prevIndex) =>
+            prevIndex === 0 ? totalSlides - 1 : prevIndex - 1
+        );
+        setIsAutoPlaying(false);
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+        timeoutRef.current = setTimeout(() => {
+            setIsAutoPlaying(true);
+        }, 3000);
+    };
+
+    const goToNext = () => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
+        setIsAutoPlaying(false);
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+        timeoutRef.current = setTimeout(() => {
+            setIsAutoPlaying(true);
+        }, 3000);
+    };
+
+
+    // Cleanup on unmount
+    useEffect(() => {
+        return () => {
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+            }
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, []);
 
     return (
         <section
@@ -154,48 +257,139 @@ const Analytics = () => {
                     </p>
                 </div>
 
-                {/* Analytics Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-                    {stats.map((stat, index) => (
+                {/* Carousel Container */}
+                <div
+                    className="relative max-w-7xl mx-auto"
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                >
+                    {/* Navigation Arrows */}
+                    <button
+                        onClick={goToPrevious}
+                        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 bg-white/90 backdrop-blur-sm text-emerald-700 p-3 rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-300 z-10 hidden md:flex items-center justify-center"
+                        aria-label="Previous slide"
+                    >
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+
+                    <button
+                        onClick={goToNext}
+                        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 bg-white/90 backdrop-blur-sm text-emerald-700 p-3 rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-300 z-10 hidden md:flex items-center justify-center"
+                        aria-label="Next slide"
+                    >
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+
+                    {/* Carousel Slides */}
+                    <div className="overflow-hidden">
                         <div
-                            key={stat.id}
-                            className={`${stat.bgColor} rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-transparent hover:border-${stat.textColor.split('-')[1]}-300 group`}
+                            className="flex transition-transform duration-500 ease-in-out"
                             style={{
-                                animationDelay: `${index * 100}ms`,
-                                animation: isVisible ? 'fadeInUp 0.6s ease-out forwards' : 'none',
-                                opacity: isVisible ? 1 : 0
+                                transform: `translateX(-${currentIndex * 100}%)`
                             }}
                         >
-                            {/* Icon */}
-                            <div className={`inline-flex p-4 rounded-lg bg-gradient-to-br ${stat.color} text-white mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                                {stat.icon}
-                            </div>
+                            {Array.from({ length: totalSlides }).map((_, slideIndex) => {
+                                const start = slideIndex * itemsPerSlide;
+                                const slideStats = stats.slice(start, start + itemsPerSlide);
 
-                            {/* Number */}
-                            <div className="mb-2">
-                                <span className={`text-4xl md:text-5xl font-bold ${stat.textColor} transition-all duration-300`}>
-                                    {counters[stat.id]}
-                                </span>
-                                <span className={`text-2xl ${stat.textColor} font-semibold`}>
-                                    {stat.suffix}
-                                </span>
-                            </div>
+                                return (
+                                    <div
+                                        key={slideIndex}
+                                        className="w-full flex-shrink-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-2"
+                                    >
+                                        {slideStats.map((stat, index) => (
+                                            <div
+                                                key={stat.id}
+                                                className={`${stat.bgColor} rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-transparent group`}
+                                                style={{
+                                                    animationDelay: `${index * 100}ms`,
+                                                    animation: isVisible ? 'fadeInUp 0.6s ease-out forwards' : 'none',
+                                                    opacity: isVisible ? 1 : 0
+                                                }}
+                                            >
+                                                {/* Icon */}
+                                                <div className={`inline-flex p-4 rounded-lg bg-gradient-to-br ${stat.color} text-white mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                                                    {stat.icon}
+                                                </div>
 
-                            {/* Label */}
-                            <h3 className={`text-lg font-semibold ${stat.textColor} mb-1`}>
-                                {stat.label}
-                            </h3>
+                                                {/* Number */}
+                                                <div className="mb-2">
+                                                    <span className={`text-4xl md:text-5xl font-bold ${stat.textColor} transition-all duration-300`}>
+                                                        {counters[stat.id]}
+                                                    </span>
+                                                    <span className={`text-2xl ${stat.textColor} font-semibold`}>
+                                                        {stat.suffix}
+                                                    </span>
+                                                </div>
 
-                            {/* Progress Bar */}
-                            <div className="mt-4 h-2 bg-white rounded-full overflow-hidden">
-                                <div
-                                    className={`h-full bg-gradient-to-r ${stat.color} rounded-full transition-all duration-2000 ease-out`}
-                                    style={{
-                                        width: isVisible ? `${(counters[stat.id] / stat.target) * 100}%` : '0%'
-                                    }}
-                                ></div>
-                            </div>
+                                                {/* Label */}
+                                                <h3 className={`text-lg font-semibold ${stat.textColor} mb-1`}>
+                                                    {stat.label}
+                                                </h3>
+
+                                                {/* Progress Bar */}
+                                                <div className="mt-4 h-2 bg-white rounded-full overflow-hidden">
+                                                    <div
+                                                        className={`h-full bg-gradient-to-r ${stat.color} rounded-full transition-all duration-2000 ease-out`}
+                                                        style={{
+                                                            width: isVisible ? `${(counters[stat.id] / stat.target) * 100}%` : '0%'
+                                                        }}
+                                                    ></div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                );
+                            })}
                         </div>
+                    </div>
+
+                    {/* Progress Indicator Dots */}
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
+                        {Array.from({ length: totalSlides }).map((_, index) => (
+                            <button
+                                key={index}
+                                onClick={() => goToSlide(index)}
+                                className={`transition-all duration-300 ${index === currentIndex
+                                    ? 'w-8 h-2 bg-emerald-600 rounded-full'
+                                    : 'w-2 h-2 bg-gray-300 rounded-full hover:bg-emerald-400'
+                                    }`}
+                                aria-label={`Go to slide ${index + 1}`}
+                            />
+                        ))}
+                    </div>
+
+                    {/* Timer Progress Bar */}
+                    {isAutoPlaying && isVisible && (
+                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-200">
+                            <div
+                                className="h-full bg-gradient-to-r from-emerald-600 to-amber-500 transition-all duration-4000 ease-linear"
+                                style={{
+                                    width: '100%',
+                                    animation: 'progress 4s linear infinite'
+                                }}
+                            ></div>
+                        </div>
+                    )}
+                </div>
+
+                {/* Slide Indicators (Labels) */}
+                <div className="flex justify-center mt-8 space-x-3 flex-wrap gap-2">
+                    {Array.from({ length: totalSlides }).map((_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => goToSlide(index)}
+                            className={`transition-all duration-300 text-sm ${index === currentIndex
+                                ? 'bg-gradient-to-r from-emerald-600 to-amber-500 text-white px-4 py-2 rounded-full font-semibold shadow-lg'
+                                : 'bg-gray-200 text-gray-600 px-3 py-1 rounded-full hover:bg-gray-300'
+                                }`}
+                        >
+                            Slide {index + 1}
+                        </button>
                     ))}
                 </div>
 
@@ -216,6 +410,14 @@ const Analytics = () => {
           to {
             opacity: 1;
             transform: translateY(0);
+          }
+        }
+        @keyframes progress {
+          from {
+            width: 0%;
+          }
+          to {
+            width: 100%;
           }
         }
       `}</style>
