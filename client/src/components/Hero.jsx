@@ -1,0 +1,77 @@
+import React from 'react';
+import About from './About';
+import Programs from './Programs';
+
+const Hero = () => {
+  return (
+    <section id="home" className="relative bg-gradient-to-br from-emerald-900 via-green-800 to-emerald-700 text-white py-20 md:py-32 overflow-hidden">
+      {/* Decorative Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-0 left-0 w-full h-full" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }}></div>
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Islamic Calligraphy Style Title */}
+          <div className="mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
+              Department of Islamic Studies
+            </h1>
+            <div className="w-32 h-1 bg-amber-400 mx-auto mb-4"></div>
+            <p className="text-xl md:text-2xl text-emerald-100 font-light">
+              Kohat University of Science & Technology
+            </p>
+          </div>
+
+          {/* Subtitle */}
+          <p className="text-lg md:text-xl text-emerald-50 mb-8 leading-relaxed max-w-2xl mx-auto">
+            Nurturing Islamic scholarship, promoting academic excellence, and fostering 
+            a deep understanding of Islamic sciences and contemporary issues.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a
+              href="#programs"
+              className="bg-amber-500 hover:bg-amber-600 text-white px-8 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg"
+            >
+              Explore Programs
+            </a>
+            <a
+              href="#about"
+              className="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white px-8 py-3 rounded-lg font-semibold transition-all border-2 border-white/30"
+            >
+              Learn More
+            </a>
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-8 border-t border-white/20">
+            <div>
+              <div className="text-3xl md:text-4xl font-bold text-amber-400">500+</div>
+              <div className="text-sm text-emerald-100 mt-1">Students</div>
+            </div>
+            <div>
+              <div className="text-3xl md:text-4xl font-bold text-amber-400">25+</div>
+              <div className="text-sm text-emerald-100 mt-1">Faculty</div>
+            </div>
+            <div>
+              <div className="text-3xl md:text-4xl font-bold text-amber-400">10+</div>
+              <div className="text-sm text-emerald-100 mt-1">Programs</div>
+            </div>
+            <div>
+              <div className="text-3xl md:text-4xl font-bold text-amber-400">15+</div>
+              <div className="text-sm text-emerald-100 mt-1">Years</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <About />
+      <Programs />
+    </section>
+  );
+};
+
+export default Hero;
