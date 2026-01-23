@@ -2,56 +2,67 @@
     {
         "title": "Bachelor of Islamic Studies",
         "duration": "4 Years",
-        "level": "Undergraduate"
+        "level": "Undergraduate",
+        "description": "The Bachelor of Islamic Studies is a four-year program that provides students with a comprehensive understanding of Islamic studies. It is designed to prepare students for a career in the field of Islamic studies."
     },
     {
         "title": "Master of Islamic Studies",
         "duration": "2 Years",
-        "level": "Graduate"
+        "level": "Graduate",
+        "description": "The Master of Islamic Studies is a two-year program that provides students with a comprehensive understanding of Islamic studies. It is designed to prepare students for a career in the field of Islamic studies."
     },
     {
         "title": "PhD in Islamic Studies",
         "duration": "3-5 Years",
-        "level": "Doctorate"
+        "level": "Doctorate",
+        "description": "The PhD in Islamic Studies is a three- to five-year program that provides students with a comprehensive understanding of Islamic studies. It is designed to prepare students for a career in the field of Islamic studies."
     },
     {
         "title": "Diploma in Islamic Studies",
         "duration": "2 Years",
-        "level": "Diploma"
+        "level": "Diploma",
+        "description": "The Diploma in Islamic Studies is a two-year program that provides students with a comprehensive understanding of Islamic studies. It is designed to prepare students for a career in the field of Islamic studies."
     },
     {
         "title": "Certificate in Islamic Studies",
         "duration": "1 Year",
-        "level": "Certificate"
+        "level": "Certificate",
+        "description": "The Certificate in Islamic Studies is a one-year program that provides students with a comprehensive understanding of Islamic studies. It is designed to prepare students for a career in the field of Islamic studies."
     },
     {
         "title": "Short Course in Islamic Studies",
         "duration": "1 Month",
-        "level": "Short Course"
+        "level": "Short Course",
+        "description": "The Short Course in Islamic Studies is a one-month program that provides students with a comprehensive understanding of Islamic studies. It is designed to prepare students for a career in the field of Islamic studies."
     },
     {
         "title": "Advanced Course in Islamic Studies",
         "duration": "1 Year",
-        "level": "Advanced Course"
+        "level": "Advanced Course",
+        "description": "The Advanced Course in Islamic Studies is a one-year program that provides students with a comprehensive understanding of Islamic studies. It is designed to prepare students for a career in the field of Islamic studies."
     },
     {
         "title": "Specialized Course in Islamic Studies",
         "duration": "1 Year",
-        "level": "Specialized Course"
+        "level": "Specialized Course",
+        "description": "The Specialized Course in Islamic Studies is a one-year program that provides students with a comprehensive understanding of Islamic studies. It is designed to prepare students for a career in the field of Islamic studies."
     },
     {
         "title": "Research in Islamic Studies",
         "duration": "1 Year",
-        "level": "Research"
+        "level": "Research",
+        "description": "The Research in Islamic Studies is a one-year program that provides students with a comprehensive understanding of Islamic studies. It is designed to prepare students for a career in the field of Islamic studies."
     },
     {
         "title": "Thesis in Islamic Studies",
         "duration": "1 Year",
-        "level": "Thesis"
+        "level": "Thesis",
+        "description": "The Thesis in Islamic Studies is a one-year program that provides students with a comprehensive understanding of Islamic studies. It is designed to prepare students for a career in the field of Islamic studies."
     },
     {
         "title": "Project in Islamic Studies",
         "duration": "1 Year",
-        "level": "Project"
+        "level": "Project",
+        "description": "The Project in Islamic Studies is a one-year program that provides students with a comprehensive understanding of Islamic studies. It is designed to prepare students for a career in the field of Islamic studies."
     }
 ]
