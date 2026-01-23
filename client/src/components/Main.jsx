@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-
+import { NavLink } from 'react-router';
 // Stats data - moved outside component to avoid dependency issues
 const stats = [
     { id: 'students', target: 500, label: 'Students' },
@@ -114,12 +114,12 @@ function Main() {
 
                     {/* CTA Buttons */}
                     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                        <a
-                            href="#programs"
+                        <NavLink
+                            to="/researchWork"
                             className="bg-amber-500 hover:bg-amber-600 text-white px-8 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg"
                         >
-                            Explore Programs
-                        </a>
+                            Research Work
+                        </NavLink>
                         <a
                             href="#about"
                             className="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white px-8 py-3 rounded-lg font-semibold transition-all border-2 border-white/30"

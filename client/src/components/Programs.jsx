@@ -52,6 +52,10 @@ const Programs = () => {
                                 </svg>
                                 <span className="font-medium text-sm">{program.duration}</span>
                             </div>
+                            {/* Description */}
+                            <div className="text-gray-600 mb-4 relative z-10 line-clamp-3 text-justify">
+                                <p className="text-sm">{program.description}</p>
+                            </div>
 
                             {/* Separator */}
                             <div className="border-t border-emerald-100 pt-4 mt-4 relative z-10">

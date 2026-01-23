@@ -76,7 +76,7 @@ const Hero = () => {
       <Messages />
 
       {/* Programs Preview Section */}
-      <div className="programs py-16 md:py-24 bg-gradient-to-br from-emerald-50 via-green-50 to-emerald-50">
+      <div className="programs py-16 bg-gradient-to-br from-emerald-50 via-green-50 to-emerald-50">
         <div className="container mx-auto px-4">
           {/* Section Header */}
           <div className="text-center mb-12">
@@ -115,6 +115,10 @@ const Hero = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <span className="font-medium text-sm">{program.duration}</span>
+                </div>
+                {/* Description */}
+                <div className="text-gray-600 mb-4 relative z-10 line-clamp-3 text-justify">
+                  <p className="text-sm">{program.description}</p>
                 </div>
 
                 {/* Separator */}

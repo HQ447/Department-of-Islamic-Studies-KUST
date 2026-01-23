@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "title": "The  Impact of Social Media on Islamic Ethics among University Youth",
+        "date": "2023-08-12",
+        "regNo": "KUST-ISL-18-045",
+        "scholarName": "Ayesha Bibi",
+        "supervisor": "Dr. Muhammad Khalid"
+    },
+    {
+        "id": 2,
+        "title": "Comparative Study of Conventional and Islamic Banking in Khyber Pakhtunkhwa",
+        "date": "2022-06-05",
+        "regNo": "KUST-ISL-17-031",
+        "scholarName": "Abdullah Khan",
+        "supervisor": "Prof. Sanaullah"
+    },
+    {
+        "id": 3,
+        "title": "Role of Seerah Studies in Character Building of University Students",
+        "date": "2024-01-20",
+        "regNo": "KUST-ISL-19-062",
+        "scholarName": "Fatima Javed",
+        "supervisor": "Dr. Hina Fatima"
+    },
+    {
+        "id": 4,
+        "title": "Islamic Perspective on Environmental Protection: A Case Study of Kohat Region",
+        "date": "2021-09-14",
+        "regNo": "KUST-ISL-16-024",
+        "scholarName": "Muhammad Usman",
+        "supervisor": "Dr. Imran Ahmad"
+    },
+    {
+        "id": 5,
+        "title": "Analysis of Family Laws in Pakistan in the Light of Quran and Sunnah",
+        "date": "2020-05-28",
+        "regNo": "KUST-ISL-15-019",
+        "scholarName": "Sana Rauf",
+        "supervisor": "Prof. Rahmatullah"
+    }
+]
