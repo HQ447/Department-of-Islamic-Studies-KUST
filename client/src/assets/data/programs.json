@@ -1,0 +1,57 @@
+[
+    {
+        "title": "Bachelor of Islamic Studies",
+        "duration": "4 Years",
+        "level": "Undergraduate"
+    },
+    {
+        "title": "Master of Islamic Studies",
+        "duration": "2 Years",
+        "level": "Graduate"
+    },
+    {
+        "title": "PhD in Islamic Studies",
+        "duration": "3-5 Years",
+        "level": "Doctorate"
+    },
+    {
+        "title": "Diploma in Islamic Studies",
+        "duration": "2 Years",
+        "level": "Diploma"
+    },
+    {
+        "title": "Certificate in Islamic Studies",
+        "duration": "1 Year",
+        "level": "Certificate"
+    },
+    {
+        "title": "Short Course in Islamic Studies",
+        "duration": "1 Month",
+        "level": "Short Course"
+    },
+    {
+        "title": "Advanced Course in Islamic Studies",
+        "duration": "1 Year",
+        "level": "Advanced Course"
+    },
+    {
+        "title": "Specialized Course in Islamic Studies",
+        "duration": "1 Year",
+        "level": "Specialized Course"
+    },
+    {
+        "title": "Research in Islamic Studies",
+        "duration": "1 Year",
+        "level": "Research"
+    },
+    {
+        "title": "Thesis in Islamic Studies",
+        "duration": "1 Year",
+        "level": "Thesis"
+    },
+    {
+        "title": "Project in Islamic Studies",
+        "duration": "1 Year",
+        "level": "Project"
+    }
+]

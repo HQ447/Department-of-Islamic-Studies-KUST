@@ -86,29 +86,6 @@ const Messages = () => {
         }, 3000);
     };
 
-    const goToPrevious = () => {
-        setCurrentIndex((prevIndex) =>
-            prevIndex === 0 ? messages.length - 1 : prevIndex - 1
-        );
-        setIsAutoPlaying(false);
-        if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current);
-        }
-        timeoutRef.current = setTimeout(() => {
-            setIsAutoPlaying(true);
-        }, 3000);
-    };
-
-    const goToNext = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % messages.length);
-        setIsAutoPlaying(false);
-        if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current);
-        }
-        timeoutRef.current = setTimeout(() => {
-            setIsAutoPlaying(true);
-        }, 3000);
-    };
 
     // Cleanup on unmount
     useEffect(() => {
@@ -146,63 +123,66 @@ const Messages = () => {
 
                 {/* Slider Container */}
                 <div
-                    className="relative max-w-5xl mx-auto"
+                    className="relative max-w-7xl mx-auto"
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                 >
                     {/* Main Message Card */}
                     <div className={`${currentMessage.bgColor} rounded-2xl shadow-2xl overflow-hidden transition-all duration-500`}>
-                        <div className="grid md:grid-cols-2 gap-0">
-                            {/* Image Section */}
-                            <div className="relative h-64 md:h-auto bg-gradient-to-br from-gray-200 to-gray-300">
-                                <img
-                                    src={currentMessage.image}
-                                    alt={currentMessage.name}
-                                    className="w-full h-full object-cover"
-                                    onError={(e) => {
-                                        // Fallback to gradient if image fails to load
-                                        e.target.style.display = 'none';
-                                        e.target.parentElement.className = `relative h-64 md:h-auto bg-gradient-to-br ${currentMessage.color}`;
-                                    }}
-                                />
-                                {/* Overlay Gradient */}
-                                <div className={`absolute inset-0 bg-gradient-to-br ${currentMessage.color} opacity-20`}></div>
-
-                                {/* Type Badge */}
-                                <div className="absolute top-4 left-4">
-                                    <span className={`bg-white/90 backdrop-blur-sm ${currentMessage.textColor} px-4 py-2 rounded-full text-sm font-semibold shadow-lg`}>
-                                        {currentMessage.type}
-                                    </span>
-                                </div>
-                            </div>
-
-                            {/* Content Section */}
-                            <div className="p-8 md:p-12 flex flex-col justify-center">
-                                <div className="mb-4">
-                                    <h3 className={`text-2xl md:text-3xl font-bold ${currentMessage.textColor} mb-2`}>
-                                        {currentMessage.title}
-                                    </h3>
-                                    <div className="w-16 h-1 bg-amber-500 mb-4"></div>
+                        <div className="p-8 md:p-12">
+                            <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
+                                {/* Small Image Section */}
+                                <div className="flex-shrink-0">
+                                    <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                                        <img
+                                            src={currentMessage.image}
+                                            alt={currentMessage.name}
+                                            className="w-full h-full object-cover"
+                                            onError={(e) => {
+                                                // Fallback to gradient if image fails to load
+                                                e.target.style.display = 'none';
+                                                e.target.parentElement.className = `relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white shadow-lg bg-gradient-to-br ${currentMessage.color}`;
+                                            }}
+                                        />
+                                        {/* Overlay Gradient */}
+                                        <div className={`absolute inset-0 bg-gradient-to-br ${currentMessage.color} opacity-20`}></div>
+                                    </div>
+                                    {/* Type Badge */}
+                                    <div className="mt-4 text-center">
+                                        <span className={`bg-white/90 backdrop-blur-sm ${currentMessage.textColor} px-4 py-2 rounded-full text-sm font-semibold shadow-lg inline-block`}>
+                                            {currentMessage.type}
+                                        </span>
+                                    </div>
                                 </div>
 
-                                <div className="mb-6">
-                                    <h4 className={`text-xl font-bold ${currentMessage.textColor} mb-1`}>
-                                        {currentMessage.name}
-                                    </h4>
-                                    <p className="text-gray-600 font-medium">
-                                        {currentMessage.designation}
+                                {/* Content Section */}
+                                <div className="flex-1 text-center md:text-left">
+                                    <div className="mb-4">
+                                        <h3 className={`text-2xl md:text-3xl font-bold ${currentMessage.textColor} mb-2`}>
+                                            {currentMessage.title}
+                                        </h3>
+                                        <div className={`w-16 h-1 bg-amber-500 mb-4 ${'mx-auto md:mx-0'}`}></div>
+                                    </div>
+
+                                    <div className="mb-6">
+                                        <h4 className={`text-xl font-bold ${currentMessage.textColor} mb-1`}>
+                                            {currentMessage.name}
+                                        </h4>
+                                        <p className="text-gray-600 font-medium">
+                                            {currentMessage.designation}
+                                        </p>
+                                    </div>
+
+                                    <p className="text-gray-700 leading-relaxed text-base md:text-lg mb-6">
+                                        {currentMessage.message}
                                     </p>
-                                </div>
 
-                                <p className="text-gray-700 leading-relaxed text-base md:text-lg mb-6 line-clamp-4 md:line-clamp-none">
-                                    {currentMessage.message}
-                                </p>
-
-                                {/* Quote Icon */}
-                                <div className={`${currentMessage.textColor} opacity-20`}>
-                                    <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.996 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.984zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.432.917-3.995 3.638-3.995 5.849h3.983v10h-9.984z" />
-                                    </svg>
+                                    {/* Quote Icon */}
+                                    <div className={`${currentMessage.textColor} opacity-20 flex justify-center md:justify-start`}>
+                                        <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.996 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.984zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.432.917-3.995 3.638-3.995 5.849h3.983v10h-9.984z" />
+                                        </svg>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -1,13 +1,76 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+
+// Stats data - moved outside component to avoid dependency issues
+const stats = [
+    { id: 'students', target: 500, label: 'Students' },
+    { id: 'faculty', target: 25, label: 'Faculty' },
+    { id: 'programs', target: 10, label: 'Programs' },
+    { id: 'years', target: 15, label: 'Years' }
+];
 
 function Main() {
+    const [counters, setCounters] = useState({
+        students: 0,
+        faculty: 0,
+        programs: 0,
+        years: 0
+    });
+    const [hasAnimated, setHasAnimated] = useState(false);
+    const sectionRef = useRef(null);
+
+    // Animate counter
+    const animateCounter = (id, target) => {
+        const duration = 2000; // 2 seconds
+        const steps = 60;
+        const increment = target / steps;
+        let current = 0;
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                setCounters(prev => ({ ...prev, [id]: target }));
+                clearInterval(timer);
+            } else {
+                setCounters(prev => ({ ...prev, [id]: Math.floor(current) }));
+            }
+        }, duration / steps);
+    };
+
+    // Intersection Observer for scroll animation
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && !hasAnimated) {
+                        setHasAnimated(true);
+                        // Start animations for all stats
+                        stats.forEach((stat) => {
+                            animateCounter(stat.id, stat.target);
+                        });
+                    }
+                });
+            },
+            { threshold: 0.2 }
+        );
+
+        const currentRef = sectionRef.current;
+        if (currentRef) {
+            observer.observe(currentRef);
+        }
+
+        return () => {
+            if (currentRef) {
+                observer.unobserve(currentRef);
+            }
+        };
+    }, [hasAnimated]);
+
     return (
-        <section id="home" className="relative text-white overflow-hidden">
+        <section ref={sectionRef} id="home" className="relative text-white overflow-hidden">
             {/* Background Image with Fade */}
             <div
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                 style={{
-                    backgroundImage: `url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSl_g8-LodWuVgOdL37bLxalcJBm5aUN5MKYg&s')`,
+                    backgroundImage: `url('https://jaamiah.com/wp-content/uploads/2019/05/Kohat-University-of-Science-and-Technology-Kohat-Campus-Featured-Image-1.jpg')`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center top',
                 }}
@@ -67,22 +130,14 @@ function Main() {
 
                     {/* Stats */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-8 border-t border-white/20">
-                        <div>
-                            <div className="text-3xl md:text-4xl font-bold text-amber-400">500+</div>
-                            <div className="text-sm text-emerald-100 mt-1">Students</div>
-                        </div>
-                        <div>
-                            <div className="text-3xl md:text-4xl font-bold text-amber-400">25+</div>
-                            <div className="text-sm text-emerald-100 mt-1">Faculty</div>
-                        </div>
-                        <div>
-                            <div className="text-3xl md:text-4xl font-bold text-amber-400">10+</div>
-                            <div className="text-sm text-emerald-100 mt-1">Programs</div>
-                        </div>
-                        <div>
-                            <div className="text-3xl md:text-4xl font-bold text-amber-400">15+</div>
-                            <div className="text-sm text-emerald-100 mt-1">Years</div>
-                        </div>
+                        {stats.map((stat) => (
+                            <div key={stat.id}>
+                                <div className="text-3xl md:text-4xl font-bold text-amber-400">
+                                    {counters[stat.id]}+
+                                </div>
+                                <div className="text-sm text-emerald-100 mt-1">{stat.label}</div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>

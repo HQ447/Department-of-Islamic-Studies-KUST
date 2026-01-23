@@ -24,10 +24,9 @@ const Header = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
             <NavLink to="/" className="text-white hover:text-emerald-200 transition-colors font-medium">Home</NavLink>
-            <NavLink to="/about" className="text-white hover:text-emerald-200 transition-colors font-medium">About</NavLink>
             <NavLink to="/programs" className="text-white hover:text-emerald-200 transition-colors font-medium">Programs</NavLink>
             <NavLink to="/faculty" className="text-white hover:text-emerald-200 transition-colors font-medium">Faculty</NavLink>
-            <NavLink to="/news" className="text-white hover:text-emerald-200 transition-colors font-medium">News</NavLink>
+            <NavLink to="/news" className="text-white hover:text-emerald-200 transition-colors font-medium">Notifications</NavLink>
             <NavLink to="/events" className="text-white hover:text-emerald-200 transition-colors font-medium">Events</NavLink>
             <NavLink to="/contact" className="bg-white text-emerald-800 px-4 py-2 rounded-lg hover:bg-emerald-50 transition-colors font-medium">Contact</NavLink>
           </div>
@@ -52,10 +51,9 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden mt-4 pb-4 space-y-3">
             <NavLink to="/" className="block text-white hover:text-emerald-200 transition-colors py-2">Home</NavLink>
-            <NavLink to="/about" className="block text-white hover:text-emerald-200 transition-colors py-2">About</NavLink>
             <NavLink to="/programs" className="block text-white hover:text-emerald-200 transition-colors py-2">Programs</NavLink>
             <NavLink to="/faculty" className="block text-white hover:text-emerald-200 transition-colors py-2">Faculty</NavLink>
-            <NavLink to="/news" className="block text-white hover:text-emerald-200 transition-colors py-2">News</NavLink>
+            <NavLink to="/news" className="block text-white hover:text-emerald-200 transition-colors py-2">Notifications</NavLink>
             <NavLink to="/events" className="block text-white hover:text-emerald-200 transition-colors py-2">Events</NavLink>
             <NavLink to="/contact" className="block bg-white text-emerald-800 px-4 py-2 rounded-lg text-center">Contact</NavLink>
           </div>
