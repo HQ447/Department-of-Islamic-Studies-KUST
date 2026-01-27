@@ -106,7 +106,7 @@ function Main() {
                         </p>
                     </div>
 
-                    {/* Subtitle */}
+                    {/* Subtitles */}
                     <p className="text-lg md:text-xl text-emerald-50 mb-8 leading-relaxed max-w-2xl mx-auto">
                         Nurturing Islamic scholarship, promoting academic excellence, and fostering
                         a deep understanding of Islamic sciences and contemporary issues.
