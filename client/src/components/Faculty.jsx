@@ -2,71 +2,61 @@ import React, { useState } from 'react';
 
 // Faculty Card Component
 const FacultyCard = ({ member, getInitials }) => {
-    const [imageError, setImageError] = useState(false);
     const initials = getInitials(member.name);
 
     return (
-        <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden border-2 border-emerald-100 group text-center">
-            {/* Content Section */}
-            <div className="p-6 pt-8">
-                {/* Circular Image */}
-                <div className="relative mb-6 flex justify-center">
-                    <div className="relative w-32 h-32 md:w-36 md:h-36">
-                        {!imageError && member.image ? (
-                            <img
-                                src={member.image}
-                                alt={member.name}
-                                className="w-full h-full object-cover rounded-full border-4 border-emerald-200 group-hover:border-emerald-400 transition-all duration-300 shadow-lg group-hover:scale-105"
-                                onError={() => setImageError(true)}
-                            />
-                        ) : (
-                            <div className="w-full h-full rounded-full bg-gradient-to-br from-emerald-600 to-green-700 flex items-center justify-center border-4 border-emerald-200 group-hover:border-emerald-400 transition-all duration-300 shadow-lg">
-                                <span className="text-white text-3xl md:text-4xl font-bold">{initials}</span>
-                            </div>
-                        )}
-                        {/* Designation Badge */}
-                        <div className="absolute -bottom-2 left-1/2 -translate-x-1/2">
-                            <span className="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg whitespace-nowrap">
-                                {member.designation}
-                            </span>
-                        </div>
+        <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-xl p-6 border-2 border-emerald-100 hover:border-emerald-300 transition-all duration-300 shadow-md hover:shadow-lg">
+            {/* Faculty Image/Initials */}
+            <div className="flex justify-center mb-4">
+                <div className="relative w-24 h-24">
+                    {member.image ? (
+                        <img
+                            src={member.image}
+                            alt={member.name}
+                            className="w-full h-full object-cover rounded-full border-4 border-emerald-300 shadow-lg"
+                            onError={(e) => {
+                                e.target.style.display = 'none';
+                                e.target.nextSibling.style.display = 'flex';
+                            }}
+                        />
+                    ) : null}
+                    <div
+                        className={`w-full h-full rounded-full bg-gradient-to-br from-emerald-600 to-green-700 flex items-center justify-center border-4 border-emerald-300 shadow-lg ${member.image ? 'hidden' : ''}`}
+                    >
+                        <span className="text-white text-2xl font-bold">{initials}</span>
                     </div>
                 </div>
+            </div>
 
-                {/* Name */}
-                <h3 className="text-xl font-bold text-emerald-800 mb-3 group-hover:text-emerald-900 transition-colors">
-                    {member.name}
-                </h3>
-
-                {/* Specialization */}
-                <div className="mb-3">
-                    <div className="flex items-center justify-center text-emerald-600 mb-2">
-                        <svg className="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {/* Faculty Info */}
+            <div className="text-center">
+                <h3 className="text-lg font-bold text-emerald-800 mb-2">{member.name}</h3>
+                <span className="inline-block bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full mb-3">
+                    {member.designation}
+                </span>
+                <div className="space-y-2 text-sm text-gray-700">
+                    <div className="flex items-center justify-center gap-2">
+                        <svg className="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                         </svg>
-                        <span className="text-sm font-semibold">{member.specialization}</span>
+                        <span className="font-medium">{member.specialization}</span>
+                    </div>
+                    <div className="flex items-center justify-center gap-2">
+                        <svg className="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                        </svg>
+                        <span>{member.qualification}</span>
                     </div>
                 </div>
 
-                {/* Qualification */}
-                <div className="mb-4">
-                    <p className="text-sm text-gray-600 flex items-center justify-center">
-                        <svg className="w-4 h-4 mr-2 text-emerald-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                        </svg>
-                        {member.qualification}
-                    </p>
-                </div>
-
-                {/* Separator */}
-                <div className="border-t border-emerald-100 pt-4 mt-4">
-                    {/* View Profile Button */}
+                {/* View Profile Button */}
+                <div className="mt-4 pt-4 border-t border-emerald-200">
                     <a
                         href="#"
-                        className="inline-flex items-center text-emerald-700 font-semibold hover:text-emerald-800 group-hover:gap-2 transition-all text-sm"
+                        className="inline-flex items-center text-emerald-700 font-semibold hover:text-emerald-800 transition-colors text-sm"
                     >
                         View Profile
-                        <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                     </a>
@@ -145,7 +135,7 @@ const Faculty = () => {
                 </div>
 
                 {/* Faculty Grid */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
                     {faculty.map((member, index) => (
                         <FacultyCard key={index} member={member} getInitials={getInitials} />
                     ))}

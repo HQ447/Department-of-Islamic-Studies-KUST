@@ -28,7 +28,7 @@ const Header = () => {
             <NavLink to="/faculty" className="text-white hover:text-emerald-200 transition-colors font-medium">Faculty</NavLink>
             <NavLink to="/news" className="text-white hover:text-emerald-200 transition-colors font-medium">Notifications</NavLink>
             <NavLink to="/events" className="text-white hover:text-emerald-200 transition-colors font-medium">Events</NavLink>
-            <NavLink to="/contact" className="bg-white text-emerald-800 px-4 py-2 rounded-lg hover:bg-emerald-50 transition-colors font-medium">Contact</NavLink>
+            <NavLink to="/login" className="bg-white text-emerald-800 px-4 py-2 rounded-lg hover:bg-emerald-50 transition-colors font-medium">Login</NavLink>
           </div>
 
           {/* Mobile Menu Button */}
@@ -55,7 +55,7 @@ const Header = () => {
             <NavLink to="/faculty" className="block text-white hover:text-emerald-200 transition-colors py-2">Faculty</NavLink>
             <NavLink to="/news" className="block text-white hover:text-emerald-200 transition-colors py-2">Notifications</NavLink>
             <NavLink to="/events" className="block text-white hover:text-emerald-200 transition-colors py-2">Events</NavLink>
-            <NavLink to="/contact" className="block bg-white text-emerald-800 px-4 py-2 rounded-lg text-center">Contact</NavLink>
+            <NavLink to="/login" className="block bg-white text-emerald-800 px-4 py-2 rounded-lg text-center">Login</NavLink>
           </div>
         )}
       </nav>
