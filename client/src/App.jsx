@@ -10,7 +10,8 @@ import Programs from './components/Programs';
 import ResearchWork from './components/researchWork';
 import Login from './admin/Login';
 import Analytics from './admin/Analytics';
-
+import AdminLayout from './admin/AdminLayout';
+import AdminFaculty from './admin/Faculty';
 function App() {
   return (
     <div className="min-h-screen bg-white">
@@ -26,6 +27,8 @@ function App() {
         </Route>
         <Route path='/admin' element={<AdminLayout />} >
           <Route index element={<Analytics />} />
+          <Route path='/admin/faculty' element={<AdminFaculty />} />
+
 
         </Route>
         <Route path='/login' element={<Login />} />
