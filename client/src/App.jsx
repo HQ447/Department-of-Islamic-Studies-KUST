@@ -8,6 +8,9 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Programs from './components/Programs';
 import ResearchWork from './components/researchWork';
+import Login from './admin/Login';
+import Analytics from './admin/Analytics';
+
 function App() {
   return (
     <div className="min-h-screen bg-white">
@@ -21,6 +24,12 @@ function App() {
           <Route path='/programs' element={<Programs />} />
           <Route path='/researchWork' element={<ResearchWork />} />
         </Route>
+        <Route path='/admin' element={<AdminLayout />} >
+          <Route index element={<Analytics />} />
+
+        </Route>
+        <Route path='/login' element={<Login />} />
+
       </Routes>
     </div>
   );
