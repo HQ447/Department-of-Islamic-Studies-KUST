@@ -81,7 +81,7 @@ function Faculty() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Demo only - just reset form and close
+        // Demo only - just reset form and cl
         alert('This is a demo. Faculty member would be added here.');
         setFormData({
             name: '',
